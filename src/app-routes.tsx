@@ -346,7 +346,6 @@ const AuthHandler = ({
 
 export const AppRoutes = () => (
   <Routes>
-    <Route element={<StandaloneLayout />}>
       {routes.map(({ beta, component, noAuth, path }, index) => (
         <Route
           element={
@@ -366,8 +365,12 @@ export const AppRoutes = () => (
         element={<Navigate to={formatPath(Paths.core.status)} />}
       />
       <Route path='*' element={<NotFound />} />
-    </Route>
   </Routes>
 );
 
-export const dataRoutes = [{ path: '*', element: <AppRoutes /> }];
+export const dataRoutes = [
+  {
+    element: <StandaloneLayout />,
+    children: [{ path: '*', element: <AppRoutes /> }],
+  },
+];
