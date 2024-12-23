@@ -362,6 +362,27 @@ const convert = (m) => {
   return { ...rest, loader, action, Component };
 };
 
+const fileRoutes = {
+  path: 'file',
+  children: [
+    {
+      path: 'repository',
+      children: [
+        {
+          index: true,
+          lazy: () =>
+            import('src/routes/file-repository-index').then((m) => convert(m)),
+        },
+        {
+          path: ':uuid',
+          lazy: () =>
+            import('src/routes/file-repository-detail').then((m) => convert(m)),
+        },
+      ],
+    },
+  ],
+};
+
 export const dataRoutes = [
   {
     id: 'root',
@@ -376,8 +397,11 @@ export const dataRoutes = [
           },
           {
             path: 'login',
-            id: 'login',
             lazy: () => import('src/routes/login').then((m) => convert(m)),
+          },
+          {
+            path: 'exp',
+            children: [fileRoutes],
           },
           ...appRoutes(),
           // "No matching route" is not handled by the error boundary.

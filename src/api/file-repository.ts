@@ -19,6 +19,8 @@ export class FileRepositoryType {
 const base = new PulpAPI();
 
 export const FileRepositoryAPI = {
+  show: (id) => base.http.get(`repositories/file/file/${id}/`),
+
   create: (data) => base.http.post(`repositories/file/file/`, data),
 
   delete: (id) => base.http.delete(`repositories/file/file/${id}/`),
