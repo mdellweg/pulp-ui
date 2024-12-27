@@ -1,8 +1,8 @@
-import { type PulpStatus } from './pulp';
+import { type TaskStatus } from './pulp';
 
 export class TaskType {
   pulp_created: string;
-  state: PulpStatus;
+  state: TaskStatus;
   name: string;
   started_at: string;
   finished_at: string;

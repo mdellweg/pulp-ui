@@ -6,7 +6,7 @@ import {
   type ImportListType,
   NamespaceAPI,
   type NamespaceType,
-  PulpStatus,
+  TaskStatus,
 } from 'src/api';
 import {
   AppliedFilters,
@@ -196,11 +196,11 @@ export const ImportList = ({
 
   function getStatusClass(state) {
     switch (state) {
-      case PulpStatus.running:
+      case TaskStatus.running:
         return 'fa fa-spin fa-spinner warning';
-      case PulpStatus.waiting:
+      case TaskStatus.waiting:
         return 'fa fa-spin fa-spinner warning';
-      case PulpStatus.completed:
+      case TaskStatus.completed:
         return 'fa fa-circle success';
       default:
         return 'fa fa-circle failed';

@@ -63,7 +63,7 @@ export {
   type NamespaceType,
 } from './response-types/namespace';
 export { type GroupObjectPermissionType } from './response-types/permissions';
-export { PulpStatus } from './response-types/pulp';
+export { TaskStatus } from './response-types/pulp';
 export { type RemoteType } from './response-types/remote';
 export { type RoleType } from './response-types/role';
 export { type TaskType } from './response-types/task';
@@ -80,6 +80,4 @@ export { SignContainersAPI } from './sign-containers';
 export { SigningServiceAPI, type SigningServiceType } from './signing-service';
 export { TagAPI } from './tag';
 export { TaskAPI } from './task';
-export { TaskManagementAPI } from './task-management';
-export { TaskPurgeAPI } from './task-purge';
 export { UserAPI } from './user';

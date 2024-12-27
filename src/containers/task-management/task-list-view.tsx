@@ -13,8 +13,7 @@ import { Link } from 'react-router';
 import {
   OrphanCleanupAPI,
   RepairAPI,
-  TaskManagementAPI,
-  TaskPurgeAPI,
+  TaskAPI,
   type TaskType,
 } from 'src/api';
 import {
@@ -457,9 +456,7 @@ export class TaskListView extends Component<RouteProps, IState> {
   }
 
   private selectedTask({ pulp_href }, name) {
-    TaskManagementAPI.patch(parsePulpIDFromURL(pulp_href), {
-      state: 'canceled',
-    })
+    TaskAPI.cancel(parsePulpIDFromURL(pulp_href))
       .then(() => {
         this.setState({
           loading: true,
@@ -497,7 +494,7 @@ export class TaskListView extends Component<RouteProps, IState> {
 
   private queryTasks() {
     this.setState({ loading: true }, () => {
-      TaskManagementAPI.list(this.state.params)
+      TaskAPI.list(this.state.params)
         .then((result) => {
           this.setState({
             items: result.data.results,
@@ -563,7 +560,7 @@ export class TaskListView extends Component<RouteProps, IState> {
   }
 
   private purge(task: { finished_before: string; states: string[] }) {
-    TaskPurgeAPI.create(task)
+    TaskAPI.purge(task)
       .then(() => {
         this.addAlert(t`Purge Tasks started`, 'success');
         this.queryTasks();

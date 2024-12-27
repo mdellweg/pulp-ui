@@ -6,10 +6,10 @@ import ExclamationIcon from '@patternfly/react-icons/dist/esm/icons/exclamation-
 import OutlinedClockIcon from '@patternfly/react-icons/dist/esm/icons/outlined-clock-icon';
 import SyncAltIcon from '@patternfly/react-icons/dist/esm/icons/sync-alt-icon';
 import { type ReactElement } from 'react';
-import { PulpStatus } from 'src/api';
+import { TaskStatus } from 'src/api';
 
 interface IProps {
-  status: PulpStatus;
+  status: TaskStatus;
   type?: 'primary' | 'secondary';
   className?: string;
 }
@@ -27,7 +27,7 @@ const typeToVariantMap: Record<string, LabelProps['variant']> = {
 
 const statusToProps = (status): LabelPropType => {
   switch (status) {
-    case PulpStatus.waiting:
+    case TaskStatus.waiting:
       return {
         color: 'blue',
         text: t`Pending`,
@@ -35,25 +35,25 @@ const statusToProps = (status): LabelPropType => {
       };
 
     // TODO: what does skipped mean in pulp
-    case PulpStatus.skipped:
-    case PulpStatus.canceled:
+    case TaskStatus.skipped:
+    case TaskStatus.canceled:
       return {
         color: 'orange',
         text: t`Canceled`,
         icon: <ExclamationIcon />,
       };
 
-    case PulpStatus.running:
+    case TaskStatus.running:
       return { color: 'blue', text: t`Running`, icon: <SyncAltIcon /> };
 
-    case PulpStatus.completed:
+    case TaskStatus.completed:
       return {
         color: 'green',
         text: t`Completed`,
         icon: <CheckCircleIcon />,
       };
 
-    case PulpStatus.failed:
+    case TaskStatus.failed:
       return {
         color: 'red',
         text: t`Failed`,

@@ -7,7 +7,7 @@ import {
   ImportAPI,
   type ImportDetailType,
   type ImportListType,
-  PulpStatus,
+  TaskStatus,
 } from 'src/api';
 import {
   AlertList,
@@ -80,7 +80,7 @@ class MyImports extends Component<RouteProps, IState> {
       }
 
       const { selectedImport, selectedImportDetails } = this.state;
-      const allowedStates = [PulpStatus.running, PulpStatus.waiting];
+      const allowedStates = [TaskStatus.running, TaskStatus.waiting];
 
       // selectedImportDetails can be failed while selectedImport is still running, poll() updates selectedImport
       if (

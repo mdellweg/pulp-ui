@@ -1,7 +1,7 @@
-import { type PulpStatus } from './pulp';
+import { type TaskStatus } from './pulp';
 
 export class LastSyncType {
-  state: PulpStatus;
+  state: TaskStatus;
   started_at: string;
   finished_at: string;
   error: {

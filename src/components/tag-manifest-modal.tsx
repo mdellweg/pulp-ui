@@ -18,7 +18,7 @@ import {
   type ContainerRepositoryType,
   ContainerTagAPI,
   ExecutionEnvironmentAPI,
-  PulpStatus,
+  TaskStatus,
   TaskAPI,
 } from 'src/api';
 import {
@@ -313,17 +313,17 @@ export class TagManifestModal extends Component<IProps, IState> {
         for (const r of results) {
           const status = r.data.state;
           if (
-            status === PulpStatus.completed ||
-            status === PulpStatus.skipped ||
-            status === PulpStatus.failed ||
-            status === PulpStatus.canceled
+            status === TaskStatus.completed ||
+            status === TaskStatus.skipped ||
+            status === TaskStatus.failed ||
+            status === TaskStatus.canceled
           ) {
             pending.delete(r.data.pulp_id);
 
             if (
-              status === PulpStatus.skipped ||
-              status === PulpStatus.failed ||
-              status === PulpStatus.canceled
+              status === TaskStatus.skipped ||
+              status === TaskStatus.failed ||
+              status === TaskStatus.canceled
             ) {
               const tag = taskUrls.find((e) => e.task === r.data.pulp_id);
               this.props.onAlert({

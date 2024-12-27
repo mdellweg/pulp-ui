@@ -4,7 +4,7 @@ import {
   type CollectionVersionSearch,
   type ImportDetailType,
   type ImportListType,
-  PulpStatus,
+  TaskStatus,
 } from 'src/api';
 import { Spinner, StatusIndicator, Tooltip } from 'src/components';
 import './my-imports.scss';
@@ -34,7 +34,7 @@ export function ImportConsole({
 
   const state = selectedImport?.state || task?.state || null;
 
-  const inProgress = [PulpStatus.running, PulpStatus.waiting].includes(state);
+  const inProgress = [TaskStatus.running, TaskStatus.waiting].includes(state);
 
   const scrollToBottom = () =>
     window.requestAnimationFrame(() =>
@@ -148,14 +148,14 @@ export function ImportConsole({
           </div>
         ) : null}
 
-        {state === PulpStatus.completed && (
+        {state === TaskStatus.completed && (
           <div className='message'>
             <br />
             <span className='success'>{t`Done`}</span>
           </div>
         )}
 
-        {state === PulpStatus.failed && (
+        {state === TaskStatus.failed && (
           <div className='message'>
             <br />
             <span className='failed'>{t`Failed`}</span>

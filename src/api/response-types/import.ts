@@ -1,8 +1,8 @@
-import { type PulpStatus } from './pulp';
+import { type TaskStatus } from './pulp';
 
 export class ImportListType {
   id: number;
-  state: PulpStatus;
+  state: TaskStatus;
   started_at: string;
   finished_at: string;
   namespace: string;
