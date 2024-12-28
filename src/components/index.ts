@@ -99,6 +99,8 @@ export {
   SearchInput,
   Spinner,
 } from './patternfly-wrappers/l10n';
+export { AsJSON } from './as-json';
+export { CardJSON } from './card-json';
 export { Tooltip } from './patternfly-wrappers/tooltip';
 export { PermissionCategories } from './permission-categories';
 export { PermissionChipSelector } from './permission-chip-selector';

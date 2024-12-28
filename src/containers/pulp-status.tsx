@@ -2,20 +2,20 @@ import { t } from '@lingui/core/macro';
 import {
   Card,
   CardBody,
-  CardExpandableContent,
-  CardHeader,
   CardTitle,
   Gallery,
   GalleryItem,
   Progress,
 } from '@patternfly/react-core';
 import { sortBy } from 'lodash';
-import { Component, type ReactNode, useState } from 'react';
+import { Component, type ReactNode } from 'react';
 import { PulpStatusAPI } from 'src/api';
 import {
   AlertList,
   type AlertType,
+  AsJSON,
   BaseHeader,
+  CardJSON,
   DateComponent,
   LoadingSpinner,
   Main,
@@ -32,10 +32,6 @@ interface IState {
   alerts: AlertType[];
   status?;
 }
-
-const AsJSON = ({ data }: { data }) => (
-  <pre style={{ whiteSpace: 'pre-wrap' }}>{JSON.stringify(data, null, 2)}</pre>
-);
 
 const StatusVersions = ({
   versions,
@@ -198,23 +194,6 @@ const CardItem = ({
   </GalleryItem>
 );
 
-const CardJSON = ({ status }: { status }) => {
-  const [expanded, setExpanded] = useState<boolean>(false);
-
-  return (
-    <Card isExpanded={expanded}>
-      <CardHeader onExpand={() => setExpanded(!expanded)}>
-        <CardTitle onClick={() => setExpanded(!expanded)}>{t`JSON`}</CardTitle>
-      </CardHeader>
-      <CardExpandableContent>
-        <CardBody>
-          <AsJSON data={status} />
-        </CardBody>
-      </CardExpandableContent>
-    </Card>
-  );
-};
-
 class PulpStatus extends Component<RouteProps, IState> {
   constructor(props) {
     super(props);
@@ -288,7 +267,7 @@ class PulpStatus extends Component<RouteProps, IState> {
               </CardItem>
             </Gallery>
             <br />
-            <CardJSON status={status} />{' '}
+            <CardJSON data={status} />{' '}
           </Main>
         )}
       </>
