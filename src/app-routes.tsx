@@ -2,7 +2,7 @@ import { Trans } from '@lingui/react/macro';
 import { Banner, Flex, FlexItem } from '@patternfly/react-core';
 import WrenchIcon from '@patternfly/react-icons/dist/esm/icons/wrench-icon';
 import { type ElementType } from 'react';
-import { Navigate, redirect, useLocation } from 'react-router';
+import { Navigate, Outlet, redirect, useLocation } from 'react-router';
 import { ErrorBoundary, ExternalLink, NotFound } from 'src/components';
 import {
   AboutProject,
@@ -287,6 +287,26 @@ const routes: IRouteConfig[] = [
   },
 ];
 
+const BetaBanner = () => (
+  <Banner variant='blue'>
+    <Flex spaceItems={{ default: 'spaceItemsSm' }}>
+      <FlexItem>
+        <WrenchIcon />
+      </FlexItem>
+      <FlexItem>
+        <Trans>
+          This page is under construction and some features may be broken. You
+          can contribute at{' '}
+          <ExternalLink href='https://github.com/pulp/pulp-ui'>
+            Pulp UI
+          </ExternalLink>
+          .
+        </Trans>
+      </FlexItem>
+    </Flex>
+  </Banner>
+);
+
 const AuthHandler = ({
   beta,
   component: Component,
@@ -310,25 +330,7 @@ const AuthHandler = ({
     );
   }
 
-  const banner = beta ? (
-    <Banner variant='blue'>
-      <Flex spaceItems={{ default: 'spaceItemsSm' }}>
-        <FlexItem>
-          <WrenchIcon />
-        </FlexItem>
-        <FlexItem>
-          <Trans>
-            This page is under construction and some features may be broken. You
-            can contribute at{' '}
-            <ExternalLink href='https://github.com/pulp/pulp-ui'>
-              Pulp UI
-            </ExternalLink>
-            .
-          </Trans>
-        </FlexItem>
-      </Flex>
-    </Banner>
-  ) : null;
+  const banner = beta ? <BetaBanner /> : null;
 
   return (
     <>
@@ -362,6 +364,18 @@ const convert = (m) => {
   return { ...rest, loader, action, Component };
 };
 
+const exp_routes = [
+  {
+    path: 'tasks',
+    children: [
+      {
+        index: true,
+        lazy: () => import('src/routes/task-index').then((m) => convert(m)),
+      },
+    ],
+  },
+];
+
 export const dataRoutes = [
   {
     id: 'root',
@@ -378,6 +392,16 @@ export const dataRoutes = [
             path: 'login',
             id: 'login',
             lazy: () => import('src/routes/login').then((m) => convert(m)),
+          },
+          {
+            path: 'exp',
+            element: (
+              <>
+                <BetaBanner />
+                <Outlet />
+              </>
+            ),
+            children: exp_routes,
           },
           ...appRoutes(),
           // "No matching route" is not handled by the error boundary.

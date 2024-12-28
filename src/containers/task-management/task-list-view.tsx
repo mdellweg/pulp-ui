@@ -10,12 +10,7 @@ import {
 import { Table, Tbody, Td, Tr } from '@patternfly/react-table';
 import { Component } from 'react';
 import { Link } from 'react-router';
-import {
-  OrphanCleanupAPI,
-  RepairAPI,
-  TaskAPI,
-  type TaskType,
-} from 'src/api';
+import { OrphanCleanupAPI, RepairAPI, TaskAPI, type TaskType } from 'src/api';
 import {
   AlertList,
   type AlertType,
@@ -399,7 +394,7 @@ export class TaskListView extends Component<RouteProps, IState> {
       <ConfirmModal
         cancelAction={() => this.setState({ cancelModalVisible: false })}
         title={t`Stop task?`}
-        confirmAction={() => this.selectedTask(selectedTask, name)}
+        confirmAction={() => this.cancelTask(selectedTask, name)}
         confirmButtonTitle={t`Yes, stop`}
       >{t`${name} will be cancelled.`}</ConfirmModal>
     );
@@ -455,7 +450,7 @@ export class TaskListView extends Component<RouteProps, IState> {
     );
   }
 
-  private selectedTask({ pulp_href }, name) {
+  private cancelTask({ pulp_href }, name) {
     TaskAPI.cancel(parsePulpIDFromURL(pulp_href))
       .then(() => {
         this.setState({
